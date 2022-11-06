@@ -43,6 +43,10 @@ app.get('/', (req, res) => {
 //* GET (READ)
 app.get('/products', async (req, res) => {
   try {
+    const currentPage = req.query.currentPage;
+    const perPageItem = req.query.perPageItem;
+    console.log(currentPage, perPageItem);
+
     const query = {};
     const cursor = productCollection.find(query);
     const products = await cursor.toArray();
