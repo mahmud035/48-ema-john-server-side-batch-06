@@ -34,8 +34,22 @@ const dbConnect = async () => {
 
 dbConnect();
 
+const productCollection = client.db('emaJohn').collection('products');
+
 app.get('/', (req, res) => {
   res.send('Ema John Server is running');
+});
+
+//* GET (READ)
+app.get('/products', async (req, res) => {
+  try {
+    const query = {};
+    const cursor = productCollection.find(query);
+    const products = await cursor.toArray();
+    res.send(products);
+  } catch (error) {
+    console.log(error.message.bold);
+  }
 });
 
 app.listen(port, () => {
